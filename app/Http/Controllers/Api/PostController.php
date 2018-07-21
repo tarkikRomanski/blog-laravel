@@ -69,8 +69,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        /** todo fixed update */
-        $post->update($request->all());
+
+        $arrayForUpdate = $request->all();
+        if($request->has('file')) {
+            $fileUrl = Upload::uploadFile($request->file('file'));
+            $arrayForUpdate['file'] = $fileUrl;
+        }
+        $post->update($arrayForUpdate);
+        
+        if($request->has('categories')) {
+            $categoriesList = StringToObject::toCategories($request->get('categories'));
+            if (!empty($categoriesList)) {
+                $post->categories()->saveMany($categoriesList);
+            }
+        }
+
         return response(new PostResource($post), Response::HTTP_CREATED);
     }
 
