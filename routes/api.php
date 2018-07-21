@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::resource('categories', 'Api\CategoryController')->except(['edit']);
+Route::resource('posts', 'Api\PostController')->except(['edit']);
