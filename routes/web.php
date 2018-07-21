@@ -11,4 +11,9 @@
 |
 */
 
+Route::get('storage/{filename}', function ($filename)
+{
+    return \App\Classes\Facades\Upload::getUploadFile($filename);
+});
+
 Route::get('/', 'CategoryController@index')->name('categories');
