@@ -4,6 +4,7 @@ namespace App\Classes;
 
 
 use App\Category;
+use App\Post;
 
 class StringToObject
 {
@@ -27,5 +28,19 @@ class StringToObject
         }
 
         return $categoriesList;
+    }
+
+    /** Returns post by id.
+     * @param null $postId
+     * @return bool|Post
+     */
+    public function toPost($postId = null) {
+        if(!is_null($postId)) {
+            $post = Post::find((int)$postId);
+            if (!is_null($post)) {
+                return $post;
+            }
+        }
+        return false;
     }
 }
