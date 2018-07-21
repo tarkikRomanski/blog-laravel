@@ -23,4 +23,12 @@ class Category extends Model
     public function posts() {
         return $this->belongsToMany('App\Post', 'post_category');
     }
+
+    protected static function boot() {
+        parent::boot();
+
+        self::deleting(function($category) {
+            $category->posts()->detach();
+        });
+    }
 }

@@ -26,4 +26,12 @@ class Post extends Model
     public function comments() {
         return $this->hasMany('App\Comment');
     }
+
+    protected static function boot() {
+        parent::boot();
+
+        self::deleting(function($category) {
+            $category->categories()->detach();
+        });
+    }
 }
