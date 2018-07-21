@@ -164,6 +164,7 @@ return [
          * Custom Service Providers ...
          */
         App\Classes\ServiceProviders\UploadServiceProvider::class,
+        App\Classes\ServiceProviders\StringToObjectServiceProvider::class,
 
     ],
 
