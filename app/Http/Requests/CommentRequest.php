@@ -24,9 +24,9 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'author' => 'required|min:3|max:100|string|regex:/^([A-Z][a-z]+([ ]?[a-z]?[\'-]?[A-Z][a-z]+)*)$/g',
+            'author' => 'required|min:3|max:100|string|regex:/^([A-Z][a-z]+([ ]?[a-z]?[\'-]?[A-Z][a-z]+))$/',
             'content' => 'required',
-            'post_id' => 'required|exist:posts,id'
+            'post_id' => 'required|exists:posts,id'
         ];
     }
 }
