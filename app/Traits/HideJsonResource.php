@@ -19,11 +19,20 @@ trait HideJsonResource
     /**
      * Set the keys that are supposed to be filtered out.
      * @param array $fields
-     * @return $this
+     * @return self
      */
     public static function hide(array $fields)
     {
         self::$withoutFields = $fields;
+        return self::class;
+    }
+
+    /**
+     * Clear the filter keys array.
+     * @return self
+     */
+    public static function clearHide() {
+        self::$withoutFields = [];
         return self::class;
     }
 
