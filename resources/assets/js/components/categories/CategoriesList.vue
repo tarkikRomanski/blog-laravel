@@ -37,7 +37,7 @@
             return {
                 categories: [],
                 pageCount: 1,
-                endpoint: 'api/categories?page='
+                endpoint: this.getApiUrl('api/categories?page=')
             };
         },
 
@@ -56,7 +56,7 @@
 
             destroy(id) {
                 if(confirm('Are you sure you want to report this signature?')) {
-                    axios.delete('api/categories/'+id)
+                    axios.delete(this.getApiUrl('api/categories/'+id))
                         .then(response => this.removeCategory(id));
                 }
             },

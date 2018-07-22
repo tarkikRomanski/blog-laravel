@@ -99,13 +99,6 @@
 
             reset() {
                 this.errors = [];
-            },
-
-            getApiUrl(slug) {
-                var protocol = location.protocol;
-                var slashes = protocol.concat("//");
-                var host = slashes.concat(window.location.hostname);
-                return host + '/' + slug;
             }
         }
     }

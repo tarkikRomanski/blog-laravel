@@ -13890,13 +13890,27 @@ window.Vue = __webpack_require__(36);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.mixin({
+    methods: {
+        getApiUrl: function getApiUrl(slug) {
+            var protocol = location.protocol;
+            var slashes = protocol.concat("//");
+            var host = slashes.concat(window.location.hostname);
+            return host + '/' + slug;
+        }
+    }
+});
 
 Vue.component('categories', __webpack_require__(39));
 Vue.component('categories-form', __webpack_require__(55));
+Vue.component('category', __webpack_require__(58));
+
+Vue.component('posts', __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/posts/PostsList.vue\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+
 Vue.component('paginate', __webpack_require__(43));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
 });
 
 /***/ }),
@@ -47369,7 +47383,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             categories: [],
             pageCount: 1,
-            endpoint: 'api/categories?page='
+            endpoint: this.getApiUrl('api/categories?page=')
         };
     },
     created: function created() {
@@ -47394,7 +47408,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             if (confirm('Are you sure you want to report this signature?')) {
-                axios.delete('api/categories/' + id).then(function (response) {
+                axios.delete(this.getApiUrl('api/categories/' + id)).then(function (response) {
                     return _this2.removeCategory(id);
                 });
             }
@@ -47678,12 +47692,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         reset: function reset() {
             this.errors = [];
-        },
-        getApiUrl: function getApiUrl(slug) {
-            var protocol = location.protocol;
-            var slashes = protocol.concat("//");
-            var host = slashes.concat(window.location.hostname);
-            return host + '/' + slug;
         }
     }
 });
@@ -47804,6 +47812,124 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4b40bc28", module.exports)
+  }
+}
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(59)
+/* template */
+var __vue_template__ = __webpack_require__(60)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/categories/Category.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2f6825ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-2f6825ea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            category: null
+        };
+    },
+
+
+    props: {
+        id: {
+            type: [String],
+            default: false
+        }
+    },
+
+    created: function created() {
+        this.fetch();
+    },
+
+
+    methods: {
+        fetch: function fetch() {
+            var _this = this;
+
+            axios.get(this.getApiUrl('api/categories/' + this.id)).then(function (_ref) {
+                var data = _ref.data;
+
+                _this.category = data.data;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h1", [_vm._v(_vm._s(_vm.category.name))]),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.category.description))])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2f6825ea", module.exports)
   }
 }
 
