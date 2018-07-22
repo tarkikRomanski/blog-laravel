@@ -6,19 +6,20 @@ namespace App\Classes;
 use App\Category;
 use App\Post;
 
-class StringToObject
+class Helper
 {
     /**
      * Returns array of categories by string with id's
      * @param null|string $categories
+     * @param string $delimiter
      * @return array
      */
-    public function toCategories($categories = null) {
+    public function toCategories($categories = null, $delimiter = ',') {
         if (is_null($categories)) {
             return [];
         }
 
-        $categoriesIdList = explode(',', $categories);
+        $categoriesIdList = explode($delimiter, $categories);
         $categoriesList = [];
         foreach ($categoriesIdList as $categoryId) {
             $category = Category::find((int)$categoryId);
@@ -31,7 +32,7 @@ class StringToObject
     }
 
     /** Returns post by id.
-     * @param null $postId
+     * @param null|string $postId
      * @return bool|Post
      */
     public function toPost($postId = null) {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Classes\Facades\StringToObject;
-use App\Classes\Facades\Upload;
+use App\Classes\Facades\Helper;
+use App\Classes\Facades\Uploader;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Post;
@@ -43,7 +43,7 @@ class PostController extends Controller
     {
         $fileUrl = null;
         if($request->has('file')) {
-            $fileUrl = Upload::uploadFile($request->file('file'));
+            $fileUrl = Uploader::uploadFile($request->file('file'));
         }
 
         $post = new Post();
@@ -52,7 +52,7 @@ class PostController extends Controller
         $post->file = $fileUrl;
         $post->save();
 
-        $categoriesList = StringToObject::toCategories($request->get('categories'));
+        $categoriesList = Helper::toCategories($request->get('categories'));
 
         if(!empty($categoriesList)) {
             $post->categories()->saveMany($categoriesList);
@@ -72,13 +72,13 @@ class PostController extends Controller
 
         $arrayForUpdate = $request->all();
         if($request->has('file')) {
-            $fileUrl = Upload::uploadFile($request->file('file'));
+            $fileUrl = Uploader::uploadFile($request->file('file'));
             $arrayForUpdate['file'] = $fileUrl;
         }
         $post->update($arrayForUpdate);
-        
+
         if($request->has('categories')) {
-            $categoriesList = StringToObject::toCategories($request->get('categories'));
+            $categoriesList = Helper::toCategories($request->get('categories'));
             if (!empty($categoriesList)) {
                 $post->categories()->saveMany($categoriesList);
             }

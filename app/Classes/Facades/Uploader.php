@@ -1,13 +1,12 @@
 <?php
-
 namespace App\Classes\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class StringToObject extends Facade
+class Uploader extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'StringToObject';
+        return 'Uploader';
     }
 }

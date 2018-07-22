@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
-class Upload
+class Uploader
 {
     private static $uploadDirectory = 'public';
     /**
