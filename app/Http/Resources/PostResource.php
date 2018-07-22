@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Classes\Facades\Helper;
 use App\Traits\ResourceFieldsFilter;
 use Illuminate\Http\Resources\Json\JsonResource;
 

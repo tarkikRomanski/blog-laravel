@@ -3,7 +3,7 @@
     <div class="postList">
         <div class="row">
             <div class="card col-md-4 col-12 col-sm-6" v-for="post in posts">
-                <img class="card-img-top" v-if="checkFile(post.file)" :src="post.file" alt="Card image cap">
+                <img class="card-img-top" :src="post.file" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ post.name }}</h5>
                     <p class="card-text">{{ post.shortContent }}</p>
@@ -46,10 +46,6 @@
                         this.posts = data.data;
                         this.pageCount = data.meta.last_page;
                     });
-            },
-
-            checkFile(path) {
-                return true;
             }
         }
     }

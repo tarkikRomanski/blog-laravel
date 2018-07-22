@@ -31,7 +31,8 @@ class Helper
         return $categoriesList;
     }
 
-    /** Returns post by id.
+    /**
+     * Returns post by id.
      * @param null|string $postId
      * @return bool|Post
      */

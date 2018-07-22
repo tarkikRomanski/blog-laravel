@@ -7,6 +7,6 @@ class UploaderServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind('Upload', 'App\Classes\Uploader');
+        $this->app->bind('Uploader', 'App\Classes\Uploader');
     }
 }
