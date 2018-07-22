@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Traits\HideJsonResource;
+use App\Traits\ResourceFieldsFilter;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommentResource extends JsonResource
 {
-    use HideJsonResource;
+    use ResourceFieldsFilter;
     /**
      * Transform the resource into an array.
      *

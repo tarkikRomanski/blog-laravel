@@ -9,7 +9,7 @@
 namespace App\Traits;
 
 
-trait HideJsonResource
+trait ResourceFieldsFilter
 {
     /**
      * @var array
