@@ -28,14 +28,13 @@
 
         props: {
             comments: {
-                type: Object,
-                default: {}
+                type: Array
             }
         },
 
         methods: {
             destroy(id) {
-                if(confirm('Are you sure you want to report this comment?')) {
+                if(confirm('Are you sure you want to delete this comment?')) {
                     axios.delete(this.getApiUrl('api/comments/'+id))
                         .then(response => this.removeComments(id));
                 }

@@ -1,7 +1,7 @@
 <template>
     <div class="categoryForm">
         <div class="alert alert-success" v-if="saved">
-            <strong>Success!</strong> Your signature has been saved successfully.
+            <strong>Success!</strong> Your category has been saved successfully.
         </div>
         <form method="post" @submit.prevent="onSubmit">
                 <div class="form-group">

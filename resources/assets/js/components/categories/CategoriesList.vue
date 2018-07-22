@@ -55,7 +55,7 @@
             },
 
             destroy(id) {
-                if(confirm('Are you sure you want to report this category?')) {
+                if(confirm('Are you sure you want to delete this category?')) {
                     axios.delete(this.getApiUrl('api/categories/'+id))
                         .then(response => this.removeCategory(id));
                 }

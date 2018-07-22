@@ -34,6 +34,7 @@ Vue.component('posts-form', require('./components/posts/PostsForm.vue'));
 Vue.component('post', require('./components/posts/Post.vue'));
 
 Vue.component('comments', require('./components/comments/CommentsList.vue'));
+Vue.component('comments-form', require('./components/comments/CommentsForm.vue'));
 
 Vue.component('paginate', require('vuejs-paginate'));
 

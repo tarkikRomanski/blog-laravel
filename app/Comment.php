@@ -14,7 +14,7 @@ class Comment extends Model
     /**
      * @var array
      */
-    protected $fillable = ['author', 'content', 'post_id', 'create_at'];
+    protected $fillable = ['author', 'content', 'post_id', 'created_at'];
 
     /**
      * Has updated to set create date automate
@@ -25,7 +25,7 @@ class Comment extends Model
         parent::boot();
 
         static::creating(function (Model $model) {
-            $model->create_at = $model->freshTimestamp();
+            $model->created_at = $model->freshTimestamp();
         });
     }
 

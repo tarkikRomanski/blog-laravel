@@ -20,7 +20,7 @@ class CommentResource extends JsonResource
             'id' => $this->id,
             'author' => $this->author,
             'content' => $this->content,
-            'created' => $this->create_at
+            'created' => $this->created_at
         ]);
     }
 }

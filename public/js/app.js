@@ -13910,6 +13910,7 @@ Vue.component('posts-form', __webpack_require__(64));
 Vue.component('post', __webpack_require__(67));
 
 Vue.component('comments', __webpack_require__(70));
+Vue.component('comments-form', __webpack_require__(73));
 
 Vue.component('paginate', __webpack_require__(43));
 
@@ -47411,7 +47412,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroy: function destroy(id) {
             var _this2 = this;
 
-            if (confirm('Are you sure you want to report this category?')) {
+            if (confirm('Are you sure you want to delete this category?')) {
                 axios.delete(this.getApiUrl('api/categories/' + id)).then(function (response) {
                     return _this2.removeCategory(id);
                 });
@@ -47712,7 +47713,7 @@ var render = function() {
     _vm.saved
       ? _c("div", { staticClass: "alert alert-success" }, [
           _c("strong", [_vm._v("Success!")]),
-          _vm._v(" Your signature has been saved successfully.\n    ")
+          _vm._v(" Your category has been saved successfully.\n    ")
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -48305,6 +48306,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -48339,11 +48348,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroy: function destroy(id) {
             var _this2 = this;
 
-            if (confirm('Are you sure you want to report this post?')) {
+            if (confirm('Are you sure you want to delete this post?')) {
                 axios.delete(this.getApiUrl('api/posts/' + id)).then(function (response) {
                     location.href = _this2.getApiUrl('');
                 });
             }
+        },
+        onAddComment: function onAddComment(comment) {
+            comment.created = comment.created.date;
+            this.post.comments.unshift(comment);
         }
     }
 });
@@ -48430,6 +48443,15 @@ var render = function() {
           ])
         })
       ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _vm.post.id
+        ? _c("comments-form", {
+            attrs: { subject: _vm.post.id },
+            on: { "add-comment": _vm.onAddComment }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("comments", { attrs: { comments: _vm.post.comments } })
     ],
@@ -48540,8 +48562,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: {
         comments: {
-            type: Object,
-            default: {}
+            type: Array
         }
     },
 
@@ -48549,7 +48570,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroy: function destroy(id) {
             var _this = this;
 
-            if (confirm('Are you sure you want to report this comment?')) {
+            if (confirm('Are you sure you want to delete this comment?')) {
                 axios.delete(this.getApiUrl('api/comments/' + id)).then(function (response) {
                     return _this.removeComments(id);
                 });
@@ -48629,6 +48650,269 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5733d5f4", module.exports)
+  }
+}
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(74)
+/* template */
+var __vue_template__ = __webpack_require__(75)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/comments/CommentsForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bf2623a8", Component.options)
+  } else {
+    hotAPI.reload("data-v-bf2623a8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            errors: [],
+            saved: false,
+            comment: {
+                author: null,
+                content: null,
+                post_id: null
+            }
+        };
+    },
+
+
+    props: {
+        subject: Number
+    },
+
+    created: function created() {
+        this.comment.post_id = this.subject;
+    },
+
+
+    methods: {
+        onSubmit: function onSubmit() {
+            var _this = this;
+
+            this.saved = false;
+            axios.post(this.getApiUrl('api/comments'), this.comment).then(function (_ref) {
+                var data = _ref.data;
+
+                _this.setSuccessMessage();
+                _this.$emit('add-comment', data);
+                _this.reset();
+            }).catch(function (_ref2) {
+                var response = _ref2.response;
+                return _this.setErrors(response);
+            });
+        },
+        setErrors: function setErrors(response) {
+            this.errors = response.data.errors;
+        },
+        setSuccessMessage: function setSuccessMessage() {
+            this.reset();
+            this.saved = true;
+        },
+        reset: function reset() {
+            this.comment = {
+                author: null,
+                content: null
+            };
+            this.errors = [];
+        }
+    }
+});
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "newComment mb-3" }, [
+    _vm.saved
+      ? _c("div", { staticClass: "alert alert-success" }, [
+          _c("strong", [_vm._v("Success!")]),
+          _vm._v(" Your comment has been added successfully.\n    ")
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        attrs: { method: "post" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "label",
+            { staticClass: "control-label", attrs: { for: "author" } },
+            [_vm._v("Your name:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.comment.author,
+                expression: "comment.author"
+              }
+            ],
+            class: { "is-invalid": _vm.errors.author } + " form-control",
+            attrs: { type: "text", name: "author", id: "author" },
+            domProps: { value: _vm.comment.author },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.comment, "author", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.author
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(_vm.errors.author[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "label",
+            { staticClass: "control-label", attrs: { for: "content" } },
+            [_vm._v("Comment content:")]
+          ),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.comment.content,
+                expression: "comment.content"
+              }
+            ],
+            class: { "is-invalid": _vm.errors.content } + " form-control",
+            attrs: { name: "content", id: "content" },
+            domProps: { value: _vm.comment.content },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.comment, "content", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.content
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(_vm.errors.content[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-success", attrs: { type: "submit" } },
+          [_vm._v("Send")]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-bf2623a8", module.exports)
   }
 }
 

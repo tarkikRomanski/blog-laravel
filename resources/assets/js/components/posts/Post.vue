@@ -36,6 +36,14 @@
             </div>
         </div>
 
+        <hr>
+
+        <comments-form
+                v-if="post.id"
+                :subject="post.id"
+                v-on:add-comment="onAddComment"
+        ></comments-form>
+
         <comments :comments="post.comments"></comments>
     </div>
 </template>
@@ -68,13 +76,18 @@
             },
 
             destroy(id) {
-                if(confirm('Are you sure you want to report this post?')) {
+                if(confirm('Are you sure you want to delete this post?')) {
                     axios.delete(this.getApiUrl('api/posts/'+id))
                         .then(response => {
                             location.href = this.getApiUrl('');
                         });
                 }
             },
+
+            onAddComment(comment) {
+                comment.created = comment.created.date;
+                this.post.comments.unshift(comment);
+            }
         }
     }
 </script>

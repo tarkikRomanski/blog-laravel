@@ -8,7 +8,7 @@ $factory->define(App\Comment::class, function (Faker $faker) {
     return [
         'author' => $faker->firstName . ' ' . $faker->lastName,
         'content' => $faker->paragraph,
-        'create_at' => $faker->dateTime,
+        'created_at' => $faker->dateTime,
         'post_id' => $faker->randomElement($posts)
     ];
 });
