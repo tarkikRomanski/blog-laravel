@@ -54,15 +54,18 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $fileUrl = null;
+        $fileName = null;
+        $fileType = null;
         if($request->has('file')) {
-            $fileUrl = Uploader::uploadFile($request->file('file'));
+            $fileName = Uploader::uploadFile($request->file('file'));
+            $fileType = Uploader::getFileType($fileName);
         }
 
         $post = new Post();
         $post->name = $request->get('name');
         $post->content = $request->get('content');
-        $post->file = $fileUrl;
+        $post->file = $fileName;
+        $post->file_type = $fileType;
         $post->save();
 
         $categoriesList = Helper::toCategories($request->get('categories'));

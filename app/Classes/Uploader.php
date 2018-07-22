@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class Uploader
 {
+    public const OTHER_TYPE = 0;
+    public const IMAGE_TYPE = 1;
+
     private static $uploadDirectory = 'public';
     /**
      * Moves file from temp folder to storage
@@ -17,8 +20,25 @@ class Uploader
     public function uploadFile(UploadedFile $file) {
         $filePath = $file->store(self::$uploadDirectory);
         $fileName = str_replace(self::$uploadDirectory . '/', '', $filePath);
-        $filUrl = url('/storage/' . $fileName);
-        return $filUrl;
+        return $fileName;
+    }
+
+    /**
+     * Returns file type by name.
+     * @param $filename
+     * @return int|null
+     */
+    public function getFileType($filename) {
+        $path = self::$uploadDirectory . '/' . $filename;
+        if (Storage::exists($path)) {
+            $type = Storage::mimeType($path);
+            if (stristr($type, 'image') !== false) {
+                return self::IMAGE_TYPE;
+            } else {
+                return self::OTHER_TYPE;
+            }
+        }
+        return null;
     }
 
     /**

@@ -9,7 +9,7 @@ class Post extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'content', 'file'];
+    protected $fillable = ['name', 'content', 'file', 'file_type'];
 
     /**
      * Relationship with table 'categories'

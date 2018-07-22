@@ -48077,10 +48077,12 @@ var render = function() {
         { staticClass: "row" },
         _vm._l(_vm.posts, function(post) {
           return _c("div", { staticClass: "card col-md-4 col-12 col-sm-6" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: post.file, alt: "Card image cap" }
-            }),
+            post.fileType == 1
+              ? _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: post.file, alt: "Card image cap" }
+                })
+              : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("h5", { staticClass: "card-title" }, [
