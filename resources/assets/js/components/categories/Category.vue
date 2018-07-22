@@ -1,7 +1,10 @@
 <template>
     <div>
-        <h1>{{ category.name }}</h1>
-        <p>{{ category.description }}</p>
+        <header>
+            <h1>{{ category.name }}</h1>
+            <p>{{ category.description }}</p>
+        </header>
+        <posts  v-if="category.id" :category="category.id"></posts>
     </div>
 </template>
 
@@ -9,7 +12,7 @@
     export default {
         data() {
             return {
-                category: null
+                category: {}
             };
         },
 

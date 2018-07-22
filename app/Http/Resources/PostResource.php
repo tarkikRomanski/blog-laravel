@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'content' => $this->content,
+            'shortContent' => substr(strip_tags($this->content), 0, 40) . '...',
             'file' => $this->file,
             'categories' => CategoryResource::collection($this->categories),
             'comments' => CommentResource::hide(['post'])::collection($this->comments),

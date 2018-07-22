@@ -25,7 +25,7 @@ class PostController extends Controller
             $categoryId = $request->get('category');
             $category = Category::find($categoryId);
             if(!is_null($category)) {
-                $posts = $category->posts()->paginate(20);
+                $posts = $category->posts()->paginate(9);
             } else {
                 $posts = null;
             }
