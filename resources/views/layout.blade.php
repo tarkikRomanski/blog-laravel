@@ -17,7 +17,11 @@
             </div>
         </div>
     </nav>
-    @yield('content')
+    <div class="container">
+        <div class="row">
+            @yield('content')
+        </div>
+    </div>
 </div>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>

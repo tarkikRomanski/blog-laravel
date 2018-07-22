@@ -16,19 +16,19 @@ class Category extends Model
      */
     protected $fillable = ['name', 'description'];
 
-    /**
-     * Relationship with table 'posts'
-     * @return mixed
-     */
-    public function posts() {
-        return $this->belongsToMany('App\Post', 'post_category');
-    }
-
     protected static function boot() {
         parent::boot();
 
         self::deleting(function($category) {
             $category->posts()->detach();
         });
+    }
+
+    /**
+     * Relationship with table 'posts'
+     * @return mixed
+     */
+    public function posts() {
+        return $this->belongsToMany('App\Post', 'post_category');
     }
 }

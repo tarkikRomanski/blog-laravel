@@ -17,3 +17,5 @@ package-lock\.json
 composer\.lock
 
 storage/app/
+
+public/fonts/vendor/

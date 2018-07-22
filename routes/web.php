@@ -17,3 +17,5 @@ Route::get('storage/{filename}', function ($filename)
 });
 
 Route::get('/', 'CategoryController@index')->name('categories');
+Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
+Route::get('/categories/update/{id}', 'CategoryController@update')->name('categories.update');
