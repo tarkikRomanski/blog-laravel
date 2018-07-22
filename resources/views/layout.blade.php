@@ -10,12 +10,17 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-findcond">
+    <nav class="navbar navbar-findcond d-flex justify-content-between">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ route('categories') }}">My blog</a>
             </div>
         </div>
+        <ul>
+        @foreach(\App\Classes\Facades\Helper::getBrowsersQuantity() as $browser => $quantity)
+            <li>{{ ucfirst($browser) }}: {{ $quantity }}</li>
+        @endforeach
+        </ul>
     </nav>
     <div class="container">
         <div class="row">

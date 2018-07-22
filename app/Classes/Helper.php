@@ -5,6 +5,7 @@ namespace App\Classes;
 
 use App\Category;
 use App\Post;
+use App\Session;
 
 class Helper
 {
@@ -44,5 +45,33 @@ class Helper
             }
         }
         return false;
+    }
+
+    /**
+     * Returns quantity of browsers
+     * @return array
+     */
+    public function getBrowsersQuantity() {
+         return [
+            'chrome' => Session::where('user_agent', 'LIKE', '%Chrome/%')
+                ->where('user_agent', 'NOT LIKE', '%Chromium/%')
+                ->count(),
+            'firefox' => Session::where('user_agent', 'LIKE', '%Firefox/%')
+                ->where('user_agent', 'NOT LIKE', '%Seamonkey/%')
+                ->count(),
+            'seamonkey' => Session::where('user_agent', 'LIKE', '%Seamonkey/%')
+                ->count(),
+            'chromium' => Session::where('user_agent', 'LIKE', '%Chromium/%')
+                ->count(),
+            'safari' => Session::where('user_agent', 'LIKE', '%Safari/%')
+                ->where('user_agent', 'NOT LIKE', '%Chromium/%')
+                ->where('user_agent', 'NOT LIKE', '%Chrome/%')
+                ->count(),
+            'opera' => Session::where('user_agent', 'LIKE', '%Opera/%')
+                ->orWhere('user_agent', 'LIKE', '%OPR/%')
+                ->count(),
+            'ie' => Session::where('user_agent', 'LIKE', '%; MSIE %')
+                ->count(),
+        ];
     }
 }
