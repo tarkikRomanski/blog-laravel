@@ -88,8 +88,10 @@ class PostController extends Controller
 
         $arrayForUpdate = $request->all();
         if($request->has('file')) {
-            $fileUrl = Uploader::uploadFile($request->file('file'));
-            $arrayForUpdate['file'] = $fileUrl;
+            $fileName = Uploader::uploadFile($request->file('file'));
+            $fileType = Uploader::getFileType($fileName);
+            $arrayForUpdate['file'] = $fileName;
+            $arrayForUpdate['fileType'] = $fileType;
         }
         $post->update($arrayForUpdate);
 
