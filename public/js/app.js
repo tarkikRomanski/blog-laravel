@@ -48270,6 +48270,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -48300,6 +48331,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this.post = data.data;
             });
+        },
+        destroy: function destroy(id) {
+            var _this2 = this;
+
+            if (confirm('Are you sure you want to report this signature?')) {
+                axios.delete(this.getApiUrl('api/posts/' + id)).then(function (response) {
+                    location.href = _this2.getApiUrl('');
+                });
+            }
         }
     }
 });
@@ -48313,16 +48353,90 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "postItem" }, [
+    _vm.post.fileType == 1
+      ? _c("div", { staticClass: "postItem__imageWrap w-100" }, [
+          _c("img", {
+            staticClass: "postItem__image",
+            attrs: { src: _vm.post.file, alt: "" }
+          })
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "postItem__metaData" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-6 col-12" }, [
+          _c("strong", [_vm._v("Created:")]),
+          _vm._v(" " + _vm._s(_vm.post.created) + "\n            ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-6 col-12" }, [
+          _c("strong", [_vm._v("Updated:")]),
+          _vm._v(" " + _vm._s(_vm.post.updated) + "\n            ")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "postItem__tools" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-danger col-sm-6 col-12",
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                _vm.destroy(_vm.post.id)
+              }
+            }
+          },
+          [_c("i", { staticClass: "fa fa-trash" })]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("h1", { staticClass: "postItem__name" }, [
       _vm._v(_vm._s(_vm.post.name))
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "postItem__content" }, [
       _vm._v("\n        " + _vm._s(_vm.post.content) + "\n    ")
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.post.fileType != 1 && _vm.post.file
+      ? _c("div", { staticClass: "postItem__downloads" }, [
+          _c("a", { attrs: { href: _vm.post.file, target: "_blank" } }, [
+            _vm._v("Download file")
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "postItem__categories" },
+      _vm._l(_vm.post.categories, function(category) {
+        return _c("div", { staticClass: "postItem__category" }, [
+          _c("a", { attrs: { href: category.link } }, [
+            _vm._v(_vm._s(category.name))
+          ])
+        ])
+      })
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "btn btn-warning col-sm-6 col-12", attrs: { href: "#" } },
+      [_c("i", { staticClass: "fa fa-edit" })]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

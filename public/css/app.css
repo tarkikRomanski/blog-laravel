@@ -13548,13 +13548,73 @@ body {
 }
 
 .categoryItem__title {
-  font-family: "Coda Caption", sans-serif;
-  font-weight: 800;
   margin-bottom: 15px;
 }
 
 .categoryItem__description {
   margin-bottom: 15px;
+}
+
+.postItem__image {
+  max-width: 100%;
+  top: 50%;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.postItem__imageWrap {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  -webkit-box-shadow: 5px 5px 15px #0E0305;
+          box-shadow: 5px 5px 15px #0E0305;
+  margin-bottom: 25px;
+}
+
+.postItem__metaData {
+  margin-bottom: 15px;
+}
+
+.postItem__downloads {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.postItem__tools {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.postItem__categories {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.postItem__category {
+  border-radius: 4px;
+  background-color: #29606F;
+  padding: 2px 5px;
+}
+
+.postItem__category:nth-child(n + 2) {
+  margin-left: 10px;
+}
+
+.postItem__category a {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.postItem__category a:hover {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .pagination li:nth-child(n + 2) {
