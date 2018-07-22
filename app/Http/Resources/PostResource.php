@@ -22,7 +22,7 @@ class PostResource extends JsonResource
             'name' => $this->name,
             'content' => $this->content,
             'file' => $this->file,
-            'categories' => CategoryResource::hide(['posts'])::collection($this->categories),
+            'categories' => CategoryResource::collection($this->categories),
             'comments' => CommentResource::hide(['post'])::collection($this->comments),
             'created' => $this->created_at->diffForHumans(),
             'updated' => $this->updated_at->diffForHumans(),

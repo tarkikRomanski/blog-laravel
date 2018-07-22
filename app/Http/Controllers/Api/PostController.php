@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Category;
 use App\Classes\Facades\Helper;
 use App\Classes\Facades\Uploader;
 use App\Http\Requests\PostRequest;
@@ -14,13 +15,25 @@ use Illuminate\Http\Response;
 class PostController extends Controller
 {
     /**
-     * Return a paginated list of posts.
+     * Return a paginated list of posts by category or all.
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()
-            ->paginate(20);
+        if ($request->has('category')) {
+            $categoryId = $request->get('category');
+            $category = Category::find($categoryId);
+            if(!is_null($category)) {
+                $posts = $category->posts()->paginate(20);
+            } else {
+                $posts = null;
+            }
+        } else {
+            $posts = Post::latest()
+                ->paginate(20);
+        }
+
         return PostResource::hide(['comments'])::collection($posts);
     }
 

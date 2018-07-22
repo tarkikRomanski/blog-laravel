@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()
             ->paginate(20);
-        return CategoryResource::hide(['posts'])::collection($categories);
+        return CategoryResource::collection($categories);
     }
 
     /**
