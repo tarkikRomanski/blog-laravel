@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ post.name }}</h5>
                     <p class="card-text">{{ post.shortContent }}</p>
-                    <a href="#" class="btn btn-primary">Read more</a>
+                    <a :href="post.link" class="btn btn-primary">Read more</a>
                 </div>
             </div>
         </div>

@@ -30,6 +30,8 @@ Vue.component('categories-form', require('./components/categories/CategoriesForm
 Vue.component('category', require('./components/categories/Category.vue'));
 
 Vue.component('posts', require('./components/posts/PostsList.vue'));
+Vue.component('posts-form', require('./components/posts/PostsForm.vue'));
+Vue.component('post', require('./components/posts/Post.vue'));
 
 Vue.component('paginate', require('vuejs-paginate'));
 
