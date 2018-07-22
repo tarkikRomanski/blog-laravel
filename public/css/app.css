@@ -13617,6 +13617,15 @@ body {
   text-decoration: none;
 }
 
+.postList__img {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.postList__img img {
+  max-width: 100%;
+}
+
 .pagination li:nth-child(n + 2) {
   margin-left: 10px;
 }

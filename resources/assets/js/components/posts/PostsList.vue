@@ -3,7 +3,9 @@
     <div class="postList">
         <div class="row">
             <div class="card col-md-4 col-12 col-sm-6" v-for="post in posts">
-                <img class="card-img-top" v-if="post.fileType == 1" :src="post.file" alt="Card image cap">
+                <div class="card-img-top postList__img">
+                    <img v-if="post.fileType == 1" :src="post.file" alt="Post image">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ post.name }}</h5>
                     <p class="card-text">{{ post.shortContent }}</p>

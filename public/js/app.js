@@ -48027,6 +48027,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -48080,12 +48082,11 @@ var render = function() {
         { staticClass: "row" },
         _vm._l(_vm.posts, function(post) {
           return _c("div", { staticClass: "card col-md-4 col-12 col-sm-6" }, [
-            post.fileType == 1
-              ? _c("img", {
-                  staticClass: "card-img-top",
-                  attrs: { src: post.file, alt: "Card image cap" }
-                })
-              : _vm._e(),
+            _c("div", { staticClass: "card-img-top postList__img" }, [
+              post.fileType == 1
+                ? _c("img", { attrs: { src: post.file, alt: "Post image" } })
+                : _vm._e()
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("h5", { staticClass: "card-title" }, [

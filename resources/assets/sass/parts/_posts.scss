@@ -61,3 +61,11 @@
   }
 }
 
+.postList__img {
+  max-height: 200px;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+  }
+}
