@@ -35,6 +35,8 @@
                 <a :href="category.link">{{ category.name }}</a>
             </div>
         </div>
+
+        <comments :comments="post.comments"></comments>
     </div>
 </template>
 
@@ -66,7 +68,7 @@
             },
 
             destroy(id) {
-                if(confirm('Are you sure you want to report this signature?')) {
+                if(confirm('Are you sure you want to report this post?')) {
                     axios.delete(this.getApiUrl('api/posts/'+id))
                         .then(response => {
                             location.href = this.getApiUrl('');

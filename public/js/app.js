@@ -13909,6 +13909,8 @@ Vue.component('posts', __webpack_require__(61));
 Vue.component('posts-form', __webpack_require__(64));
 Vue.component('post', __webpack_require__(67));
 
+Vue.component('comments', __webpack_require__(70));
+
 Vue.component('paginate', __webpack_require__(43));
 
 var app = new Vue({
@@ -47409,7 +47411,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroy: function destroy(id) {
             var _this2 = this;
 
-            if (confirm('Are you sure you want to report this signature?')) {
+            if (confirm('Are you sure you want to report this category?')) {
                 axios.delete(this.getApiUrl('api/categories/' + id)).then(function (response) {
                     return _this2.removeCategory(id);
                 });
@@ -48301,6 +48303,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -48335,7 +48339,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroy: function destroy(id) {
             var _this2 = this;
 
-            if (confirm('Are you sure you want to report this signature?')) {
+            if (confirm('Are you sure you want to report this post?')) {
                 axios.delete(this.getApiUrl('api/posts/' + id)).then(function (response) {
                     location.href = _this2.getApiUrl('');
                 });
@@ -48352,78 +48356,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "postItem" }, [
-    _vm.post.fileType == 1
-      ? _c("div", { staticClass: "postItem__imageWrap w-100" }, [
-          _c("img", {
-            staticClass: "postItem__image",
-            attrs: { src: _vm.post.file, alt: "" }
-          })
+  return _c(
+    "div",
+    { staticClass: "postItem" },
+    [
+      _vm.post.fileType == 1
+        ? _c("div", { staticClass: "postItem__imageWrap w-100" }, [
+            _c("img", {
+              staticClass: "postItem__image",
+              attrs: { src: _vm.post.file, alt: "" }
+            })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "postItem__metaData" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-6 col-12" }, [
+            _c("strong", [_vm._v("Created:")]),
+            _vm._v(" " + _vm._s(_vm.post.created) + "\n            ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6 col-12" }, [
+            _c("strong", [_vm._v("Updated:")]),
+            _vm._v(" " + _vm._s(_vm.post.updated) + "\n            ")
+          ])
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticClass: "postItem__metaData" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-6 col-12" }, [
-          _c("strong", [_vm._v("Created:")]),
-          _vm._v(" " + _vm._s(_vm.post.created) + "\n            ")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6 col-12" }, [
-          _c("strong", [_vm._v("Updated:")]),
-          _vm._v(" " + _vm._s(_vm.post.updated) + "\n            ")
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "postItem__tools" }, [
-      _c("div", { staticClass: "row" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-danger col-sm-6 col-12",
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                _vm.destroy(_vm.post.id)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "postItem__tools" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-danger col-sm-6 col-12",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  _vm.destroy(_vm.post.id)
+                }
               }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-trash" })]
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("h1", { staticClass: "postItem__name" }, [
-      _vm._v(_vm._s(_vm.post.name))
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "postItem__content" }, [
-      _vm._v("\n        " + _vm._s(_vm.post.content) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _vm.post.fileType != 1 && _vm.post.file
-      ? _c("div", { staticClass: "postItem__downloads" }, [
-          _c("a", { attrs: { href: _vm.post.file, target: "_blank" } }, [
-            _vm._v("Download file")
-          ])
+            },
+            [_c("i", { staticClass: "fa fa-trash" })]
+          )
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "postItem__categories" },
-      _vm._l(_vm.post.categories, function(category) {
-        return _c("div", { staticClass: "postItem__category" }, [
-          _c("a", { attrs: { href: category.link } }, [
-            _vm._v(_vm._s(category.name))
+      ]),
+      _vm._v(" "),
+      _c("h1", { staticClass: "postItem__name" }, [
+        _vm._v(_vm._s(_vm.post.name))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "postItem__content" }, [
+        _vm._v("\n        " + _vm._s(_vm.post.content) + "\n    ")
+      ]),
+      _vm._v(" "),
+      _vm.post.fileType != 1 && _vm.post.file
+        ? _c("div", { staticClass: "postItem__downloads" }, [
+            _c("a", { attrs: { href: _vm.post.file, target: "_blank" } }, [
+              _vm._v("Download file")
+            ])
           ])
-        ])
-      })
-    )
-  ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "postItem__categories" },
+        _vm._l(_vm.post.categories, function(category) {
+          return _c("div", { staticClass: "postItem__category" }, [
+            _c("a", { attrs: { href: category.link } }, [
+              _vm._v(_vm._s(category.name))
+            ])
+          ])
+        })
+      ),
+      _vm._v(" "),
+      _c("comments", { attrs: { comments: _vm.post.comments } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -48443,6 +48454,181 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-65b4b0d3", module.exports)
+  }
+}
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(71)
+/* template */
+var __vue_template__ = __webpack_require__(72)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/comments/CommentsList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5733d5f4", Component.options)
+  } else {
+    hotAPI.reload("data-v-5733d5f4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {};
+    },
+
+
+    props: {
+        comments: {
+            type: Object,
+            default: {}
+        }
+    },
+
+    methods: {
+        destroy: function destroy(id) {
+            var _this = this;
+
+            if (confirm('Are you sure you want to report this comment?')) {
+                axios.delete(this.getApiUrl('api/comments/' + id)).then(function (response) {
+                    return _this.removeComments(id);
+                });
+            }
+        },
+        removeComments: function removeComments(id) {
+            this.comments = _.remove(this.comments, function (comments) {
+                return comments.id !== id;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "commentsList" },
+    [
+      _c("h3", [_vm._v("Comments")]),
+      _vm._v(" "),
+      _vm._l(_vm.comments, function(comment) {
+        return _c("div", { staticClass: "commentItem mb-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "div",
+              { staticClass: "card-header justify-content-between d-flex" },
+              [
+                _c("h5", [_vm._v(_vm._s(comment.author))]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.destroy(comment.id)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-trash" })]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(comment.content) +
+                  "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _c("span", { staticClass: "text-muted" }, [
+                _vm._v("comented: " + _vm._s(comment.created))
+              ])
+            ])
+          ])
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5733d5f4", module.exports)
   }
 }
 
