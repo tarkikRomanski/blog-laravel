@@ -25,6 +25,25 @@ Vue.mixin({
     }
 });
 
+/**
+ * Froala begin
+ */
+// Require Froala Editor js file.
+require('froala-editor/js/froala_editor.pkgd.min')
+
+// Require Froala Editor css files.
+require('froala-editor/css/froala_editor.pkgd.min.css')
+require('font-awesome/css/font-awesome.css')
+require('froala-editor/css/froala_style.min.css')
+
+// Import and use Vue Froala lib.
+import VueFroala from 'vue-froala-wysiwyg'
+Vue.use(VueFroala)
+
+/**
+ * Froala end
+ */
+
 Vue.component('categories', require('./components/categories/CategoriesList.vue'));
 Vue.component('categories-form', require('./components/categories/CategoriesForm.vue'));
 Vue.component('category', require('./components/categories/Category.vue'));

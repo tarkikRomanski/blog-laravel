@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vitaliyprokopov
- * Date: 7/21/18
- * Time: 3:30 PM
- */
 
 namespace App\Traits;
 
@@ -14,7 +8,7 @@ trait ResourceFieldsFilter
     /**
      * @var array
      */
-    protected static $withoutFields = [];
+    private static $withoutFields = [];
 
     /**
      * Set the keys that are supposed to be filtered out.

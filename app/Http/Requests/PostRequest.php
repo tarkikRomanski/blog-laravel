@@ -26,7 +26,7 @@ class PostRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:100',
             'content' => 'required',
-            'file' => 'max:2048|nullable',
+            'file' => 'max:2048|file|nullable',
             'categories' => 'nullable'
         ];
     }

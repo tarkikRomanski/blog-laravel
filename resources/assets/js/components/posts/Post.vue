@@ -24,9 +24,7 @@
             </div>
         </div>
         <h1 class="postItem__name">{{ post.name }}</h1>
-        <div class="postItem__content">
-            {{ post.content }}
-        </div>
+        <froalaView v-model="post.content"></froalaView>
         <div class="postItem__downloads" v-if="post.fileType != 1 && post.file">
             <a :href="post.file" target="_blank">Download file</a>
         </div>

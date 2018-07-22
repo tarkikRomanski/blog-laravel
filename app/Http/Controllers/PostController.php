@@ -14,4 +14,12 @@ class PostController extends Controller
     public function get($postId) {
         return view('posts.get', ['postId' => $postId]);
     }
+
+    /**
+     * Displays create post form
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create() {
+        return view('posts.create');
+    }
 }

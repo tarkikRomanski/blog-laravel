@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
+        "vue-froala-wysiwyg": "^2.8.4",
         "vuejs-paginate": "^2.0.0"
     }
 }
