@@ -79,13 +79,12 @@ class PostController extends Controller
 
     /**
      * Validate and update a post to the database.
-     * @param Request $request
+     * @param PostRequest $request
      * @param Post $post
      * @return PostResource
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-
         $arrayForUpdate = $request->all();
         if($request->has('file')) {
             $fileName = Uploader::uploadFile($request->file('file'));

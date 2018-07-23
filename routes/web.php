@@ -23,3 +23,4 @@ Route::get('/categories/get/{id}', 'CategoryController@get')->name('categories.g
 
 Route::get('/posts/get/{id}', 'PostController@get')->name('posts.get');
 Route::get('/posts/create', 'PostController@create')->name('posts.create');
+Route::get('/posts/update/{id}', 'PostController@update')->name('posts.update');

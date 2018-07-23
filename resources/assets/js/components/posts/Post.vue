@@ -15,7 +15,7 @@
         </div>
         <div class="postItem__tools">
             <div class="row">
-                <a href="#" class="btn btn-warning col-sm-6 col-12">
+                <a :href="post.editLink" class="btn btn-warning col-sm-6 col-12">
                     <i class="fa fa-edit"></i>
                 </a>
                 <a href="#" @click="destroy(post.id)" class="btn btn-danger col-sm-6 col-12">

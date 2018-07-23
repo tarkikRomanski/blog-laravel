@@ -61,7 +61,12 @@
                 file: null,
                 data: new FormData(),
                 categories: {},
-                checkedCategories: []
+                checkedCategories: [],
+                ajaxConfig: {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
             };
         },
 
@@ -96,18 +101,14 @@
                 }
                 if(this.checkedCategories.length > 0) {
                     this.data.append('categories', this.checkedCategories.join(','));
-                    console.log(this.data.get('categories'));
                 }
             },
 
             createNewPost() {
-                axios.post(this.getApiUrl('api/posts'),
+                axios.post(
+                    this.getApiUrl('api/posts'),
                     this.data,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
+                    this.ajaxConfig
                 ).then(
                     ({data}) => {
                         this.setSuccessMessage();
@@ -118,8 +119,15 @@
             },
 
             updatePost() {
-                axios.put(this.getApiUrl('api/posts/' + this.post.id), this.data)
-                    .then(({data}) => this.setSuccessMessage())
+                this.data.append('_method', 'PUT');
+                axios.post(
+                    this.getApiUrl('api/posts/' + this.post.id),
+                    this.data,
+                    this.ajaxConfig
+                ).then(({data}) => {
+                        this.setSuccessMessage();
+                        this.setPostData(data);
+                    })
                     .catch(({response}) => this.setErrors(response));
             },
 

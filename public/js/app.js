@@ -49355,7 +49355,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             file: null,
             data: new FormData(),
             categories: {},
-            checkedCategories: []
+            checkedCategories: [],
+            ajaxConfig: {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
         };
     },
 
@@ -49391,17 +49396,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             if (this.checkedCategories.length > 0) {
                 this.data.append('categories', this.checkedCategories.join(','));
-                console.log(this.data.get('categories'));
             }
         },
         createNewPost: function createNewPost() {
             var _this = this;
 
-            axios.post(this.getApiUrl('api/posts'), this.data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(function (_ref) {
+            axios.post(this.getApiUrl('api/posts'), this.data, this.ajaxConfig).then(function (_ref) {
                 var data = _ref.data;
 
                 _this.setSuccessMessage();
@@ -49414,9 +49414,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updatePost: function updatePost() {
             var _this2 = this;
 
-            axios.put(this.getApiUrl('api/posts/' + this.post.id), this.data).then(function (_ref3) {
+            this.data.append('_method', 'PUT');
+            axios.post(this.getApiUrl('api/posts/' + this.post.id), this.data, this.ajaxConfig).then(function (_ref3) {
                 var data = _ref3.data;
-                return _this2.setSuccessMessage();
+
+                _this2.setSuccessMessage();
+                _this2.setPostData(data);
             }).catch(function (_ref4) {
                 var response = _ref4.response;
                 return _this2.setErrors(response);
@@ -49855,7 +49858,14 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "postItem__tools" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(0),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-warning col-sm-6 col-12",
+              attrs: { href: _vm.post.editLink }
+            },
+            [_c("i", { staticClass: "fa fa-edit" })]
+          ),
           _vm._v(" "),
           _c(
             "a",
@@ -49921,18 +49931,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-warning col-sm-6 col-12", attrs: { href: "#" } },
-      [_c("i", { staticClass: "fa fa-edit" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

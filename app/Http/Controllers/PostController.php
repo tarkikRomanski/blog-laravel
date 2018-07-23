@@ -24,4 +24,14 @@ class PostController extends Controller
     {
         return view('posts.create');
     }
+
+    /**
+     * Displays update post form
+     * @param $postId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function update($postId)
+    {
+        return view('posts.update', ['postId' => $postId]);
+    }
 }
