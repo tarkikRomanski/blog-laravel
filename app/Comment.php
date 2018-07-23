@@ -33,7 +33,8 @@ class Comment extends Model
      * Relationship with table 'posts'
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function post() {
+    public function post()
+    {
         return $this->belongsTo('App\Post');
     }
 }

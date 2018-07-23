@@ -13,14 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
 class CategoryController extends Controller
 {
     /**
-     * Return a paginated list of categories.
+     * Return a paginated list of categories or all categories.
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::latest()
-            ->paginate(20);
-        return CategoryResource::collection($categories);
+        $categories = Category::latest();
+        if ($request->has('wholeList')) {
+            $categories = $categories->get();
+            return CategoryResource::showOnlyMain()::collection($categories);
+        }
+        $categories = $categories->paginate(20);
+        return CategoryResource::clearHide()::collection($categories);
     }
 
     /**

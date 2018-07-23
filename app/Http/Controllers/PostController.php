@@ -11,7 +11,8 @@ class PostController extends Controller
      * @param $postId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function get($postId) {
+    public function get($postId)
+    {
         return view('posts.get', ['postId' => $postId]);
     }
 
@@ -19,7 +20,8 @@ class PostController extends Controller
      * Displays create post form
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create() {
+    public function create()
+    {
         return view('posts.create');
     }
 }

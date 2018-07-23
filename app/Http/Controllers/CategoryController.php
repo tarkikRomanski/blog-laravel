@@ -8,7 +8,8 @@ class CategoryController extends Controller
      * Displays categories list page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
+    public function index()
+    {
         return view('categories.index');
     }
 
@@ -16,7 +17,8 @@ class CategoryController extends Controller
      * Displays create category form
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create() {
+    public function create()
+    {
         return view('categories.create');
     }
 
@@ -25,7 +27,8 @@ class CategoryController extends Controller
      * @param $categoryId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update($categoryId) {
+    public function update($categoryId)
+    {
         return view('categories.update', ['categoryId' => $categoryId]);
     }
 
@@ -34,7 +37,8 @@ class CategoryController extends Controller
      * @param $categoryId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function get($categoryId) {
+    public function get($categoryId)
+    {
         return view('categories.get', ['categoryId' => $categoryId]);
     }
 }

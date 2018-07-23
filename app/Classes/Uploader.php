@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Classes;
 
 
@@ -12,12 +13,14 @@ class Uploader
     public const IMAGE_TYPE = 1;
 
     private static $uploadDirectory = 'public';
+
     /**
      * Moves file from temp folder to storage
      * @param UploadedFile $file
      * @return string
      */
-    public function uploadFile(UploadedFile $file) {
+    public function uploadFile(UploadedFile $file)
+    {
         $filePath = $file->store(self::$uploadDirectory);
         $fileName = str_replace(self::$uploadDirectory . '/', '', $filePath);
         return $fileName;
@@ -28,7 +31,8 @@ class Uploader
      * @param $filename
      * @return int|null
      */
-    public function getFileType($filename) {
+    public function getFileType($filename)
+    {
         $path = self::$uploadDirectory . '/' . $filename;
         if (Storage::exists($path)) {
             $type = Storage::mimeType($path);
@@ -46,7 +50,8 @@ class Uploader
      * @param $filename
      * @return \Illuminate\Http\Response
      */
-    public function getUploadFile($filename) {
+    public function getUploadFile($filename)
+    {
         $path = self::$uploadDirectory . '/' . $filename;
 
 

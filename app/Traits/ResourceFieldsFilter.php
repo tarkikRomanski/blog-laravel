@@ -8,7 +8,7 @@ trait ResourceFieldsFilter
     /**
      * @var array
      */
-    private static $withoutFields = [];
+    protected static $withoutFields = [];
 
     /**
      * Set the keys that are supposed to be filtered out.
@@ -25,7 +25,8 @@ trait ResourceFieldsFilter
      * Clear the filter keys array.
      * @return self
      */
-    public static function clearHide() {
+    public static function clearHide()
+    {
         self::$withoutFields = [];
         return self::class;
     }

@@ -15,7 +15,8 @@ class Post extends Model
      * Relationship with table 'categories'
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function categories() {
+    public function categories()
+    {
         return $this->belongsToMany('App\Category', 'post_category');
     }
 
@@ -23,14 +24,16 @@ class Post extends Model
      * Relationship with table 'comments'
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany('App\Comment')->latest();
     }
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        self::deleting(function($category) {
+        self::deleting(function ($category) {
             $category->categories()->detach();
         });
     }

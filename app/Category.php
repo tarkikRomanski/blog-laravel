@@ -16,10 +16,11 @@ class Category extends Model
      */
     protected $fillable = ['name', 'description'];
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        self::deleting(function($category) {
+        self::deleting(function ($category) {
             $category->posts()->detach();
         });
     }
@@ -28,7 +29,8 @@ class Category extends Model
      * Relationship with table 'posts'
      * @return mixed
      */
-    public function posts() {
+    public function posts()
+    {
         return $this->belongsToMany('App\Post', 'post_category');
     }
 }

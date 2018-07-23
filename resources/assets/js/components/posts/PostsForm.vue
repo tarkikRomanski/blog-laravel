@@ -4,26 +4,40 @@
             <strong>Success!</strong> Your post has been saved successfully.
         </div>
         <form method="post" @submit.prevent="onSubmit">
-            <div class="form-group">
-                <label class="control-label" for="name">Post name:</label>
-                <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        :class="{'is-invalid': errors.name} + ' form-control'"
-                        v-model="post.name"
-                >
-                <div v-if="errors.name" class="invalid-feedback">{{ errors.name[0] }}</div>
-            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label class="control-label" for="name">Post name:</label>
+                        <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                :class="{'is-invalid': errors.name} + ' form-control'"
+                                v-model="post.name"
+                        >
+                        <div v-if="errors.name" class="invalid-feedback">{{ errors.name[0] }}</div>
+                    </div>
 
-            <div class="form-group">
-                <label class="control-label" for="content">Post content:</label>
-                <froala :tag="'textarea'" :config="config" v-model="post.content"></froala>
-            </div>
+                    <div class="form-group col-12">
+                        <label class="control-label" for="content">Post content:</label>
+                        <froala :tag="'textarea'" :config="config" v-model="post.content"></froala>
+                    </div>
 
-            <div class="form-group">
-                <label class="control-label" for="file">Upload File:</label>
-                <input type="file" id="file" ref="file" v-on:change="handleFileUpload"/>
+                    <div class="form-group col-12">
+                        <label class="control-label" for="file">Upload File:</label>
+                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload"/>
+                    </div>
+                </div>
+
+                <label>Form categories:</label>
+                <div class="row mb-3">
+                    <div class="form-check col-lg-4 col-md-6 col-12" v-for="category in categories">
+                        <input class="form-check-input" type="checkbox" :id="'category-'+category.id" v-model="checkedCategories" :value="category.id">
+                        <label :for="'category-'+category.id" class="form-check-label">
+                            {{ category.name }}
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success w-100">Submit</button>
@@ -46,6 +60,8 @@
                 },
                 file: null,
                 data: new FormData(),
+                categories: {},
+                checkedCategories: []
             };
         },
 
@@ -58,48 +74,82 @@
 
         created() {
             this.fetch();
+            this.fetchCategories();
         },
 
         methods: {
             onSubmit() {
-                this.data.append('name', this.post.name);
-                this.data.append('content', this.post.content);
-                this.data.append('file', this.file);
+                this.setFormData();
                 this.saved = false;
                 if(this.update === false) {
-                    axios.post(this.getApiUrl('api/posts'),
-                        this.data,
-                        {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }
-                    ).then(
-                            ({data}) => {
-                                console.log(data);
-                                this.setSuccessMessage();
-                                this.setPostData(data);
-                            }
-                        )
-                        .catch(({response}) => this.setErrors(response));
+                    this.createNewPost();
                 } else {
-                    axios.put(this.getApiUrl('api/posts/' + this.post.id), this.post)
-                        .then(({data}) => this.setSuccessMessage())
-                        .catch(({response}) => this.setErrors(response));
+                    this.updatePost();
                 }
+            },
+
+            setFormData() {
+                this.data.append('name', this.post.name);
+                this.data.append('content', this.post.content);
+                if(this.file != null) {
+                    this.data.append('file', this.file);
+                }
+                if(this.checkedCategories.length > 0) {
+                    this.data.append('categories', this.checkedCategories.join(','));
+                    console.log(this.data.get('categories'));
+                }
+            },
+
+            createNewPost() {
+                axios.post(this.getApiUrl('api/posts'),
+                    this.data,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(
+                    ({data}) => {
+                        this.setSuccessMessage();
+                        this.setPostData(data);
+                    }
+                )
+                    .catch(({response}) => this.setErrors(response));
+            },
+
+            updatePost() {
+                axios.put(this.getApiUrl('api/posts/' + this.post.id), this.data)
+                    .then(({data}) => this.setSuccessMessage())
+                    .catch(({response}) => this.setErrors(response));
             },
 
             fetch() {
                 if (this.update !== false) {
                     axios.get(this.getApiUrl('api/posts/' + this.update))
-                        .then(({data}) => this.setPostData(data.data));
+                        .then(({data}) => {
+                            this.setPostData(data.data);
+                            this.checkedCategories = [];
+                            data.data.categories.forEach(e => {
+                                this.checkedCategories.push(e.id);
+                            });
+                        });
                 }
+            },
+
+            fetchCategories() {
+                axios.get(this.getApiUrl('api/categories/') + '?wholeList=1')
+                    .then(({data}) => {
+                        this.categories = data.data;
+                    });
             },
 
             setPostData(data) {
                 this.post.name = data.name;
                 this.post.content = data.content;
                 this.post.id = data.id;
+                data.categories.forEach(e => {
+                    this.checkedCategories.push(e.id);
+                });
             },
 
             handleFileUpload(){
@@ -117,6 +167,7 @@
 
             reset() {
                 this.errors = [];
+                this.checkedCategories = [];
                 this.data = new FormData();
                 this.file = null;
             }

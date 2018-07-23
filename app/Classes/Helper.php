@@ -15,7 +15,8 @@ class Helper
      * @param string $delimiter
      * @return array
      */
-    public function toCategories($categories = null, $delimiter = ',') {
+    public function toCategories($categories = null, $delimiter = ',')
+    {
         if (is_null($categories)) {
             return [];
         }
@@ -24,7 +25,7 @@ class Helper
         $categoriesList = [];
         foreach ($categoriesIdList as $categoryId) {
             $category = Category::find((int)$categoryId);
-            if(!is_null($category)) {
+            if (!is_null($category)) {
                 $categoriesList[] = $category;
             }
         }
@@ -37,8 +38,9 @@ class Helper
      * @param null|string $postId
      * @return bool|Post
      */
-    public function toPost($postId = null) {
-        if(!is_null($postId)) {
+    public function toPost($postId = null)
+    {
+        if (!is_null($postId)) {
             $post = Post::find((int)$postId);
             if (!is_null($post)) {
                 return $post;
@@ -51,8 +53,9 @@ class Helper
      * Returns quantity of browsers
      * @return array
      */
-    public function getBrowsersQuantity() {
-         return [
+    public function getBrowsersQuantity()
+    {
+        return [
             'chrome' => Session::where('user_agent', 'LIKE', '%Chrome/%')
                 ->where('user_agent', 'NOT LIKE', '%Chromium/%')
                 ->count(),
