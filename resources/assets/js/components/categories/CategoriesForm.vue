@@ -3,14 +3,14 @@
         <div class="alert alert-success" v-if="saved">
             <strong>Success!</strong> Your category has been saved successfully.
         </div>
-        <form method="post" @submit.prevent="onSubmit">
+        <form method="post" @submit.prevent="onSubmit" :class="{'was-validated': errors.length > 0}">
                 <div class="form-group">
                     <label class="control-label" for="name">Category name:</label>
                     <input
                             type="text"
                             name="name"
                             id="name"
-                            :class="{'is-invalid': errors.name} + ' form-control'"
+                            :class="{'is-invalid': errors.name, 'form-control': true}"
                             v-model="category.name"
                     >
                     <div v-if="errors.name" class="invalid-feedback">{{ errors.name[0] }}</div>
@@ -21,7 +21,7 @@
                     <textarea
                             name="description"
                             id="description"
-                            :class="{'is-invalid': errors.name} + ' form-control'"
+                            :class="{'is-invalid': errors.description, 'form-control': true}"
                             v-model="category.description"
                     ></textarea>
                     <div v-if="errors.description" class="invalid-feedback">{{ errors.description[0] }}</div>

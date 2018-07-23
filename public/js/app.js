@@ -48832,6 +48832,7 @@ var render = function() {
     _c(
       "form",
       {
+        class: { "was-validated": _vm.errors.length > 0 },
         attrs: { method: "post" },
         on: {
           submit: function($event) {
@@ -48857,7 +48858,7 @@ var render = function() {
                 expression: "category.name"
               }
             ],
-            class: { "is-invalid": _vm.errors.name } + " form-control",
+            class: { "is-invalid": _vm.errors.name, "form-control": true },
             attrs: { type: "text", name: "name", id: "name" },
             domProps: { value: _vm.category.name },
             on: {
@@ -48893,7 +48894,10 @@ var render = function() {
                 expression: "category.description"
               }
             ],
-            class: { "is-invalid": _vm.errors.name } + " form-control",
+            class: {
+              "is-invalid": _vm.errors.description,
+              "form-control": true
+            },
             attrs: { name: "description", id: "description" },
             domProps: { value: _vm.category.description },
             on: {
@@ -49374,6 +49378,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49532,6 +49549,7 @@ var render = function() {
     _c(
       "form",
       {
+        class: { "was-validated": _vm.errors.length > 0 },
         attrs: { method: "post" },
         on: {
           submit: function($event) {
@@ -49559,7 +49577,7 @@ var render = function() {
                     expression: "post.name"
                   }
                 ],
-                class: { "is-invalid": _vm.errors.name } + " form-control",
+                class: { "is-invalid": _vm.errors.name, "form-control": true },
                 attrs: { type: "text", name: "name", id: "name" },
                 domProps: { value: _vm.post.name },
                 on: {
@@ -49598,7 +49616,21 @@ var render = function() {
                     },
                     expression: "post.content"
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.errors.content
+                  ? _c(
+                      "div",
+                      { staticClass: "alert alert-danger mt-1 w-100" },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.errors.content[0]) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -49612,9 +49644,16 @@ var render = function() {
               _vm._v(" "),
               _c("input", {
                 ref: "file",
+                class: { "is-invalid": _vm.errors.file, "form-control": true },
                 attrs: { type: "file", id: "file" },
                 on: { change: _vm.handleFileUpload }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.file
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.file[0]))
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
@@ -49623,69 +49662,85 @@ var render = function() {
           _c(
             "div",
             { staticClass: "row mb-3" },
-            _vm._l(_vm.categories, function(category) {
-              return _c(
-                "div",
-                { staticClass: "form-check col-lg-4 col-md-6 col-12" },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.checkedCategories,
-                        expression: "checkedCategories"
-                      }
-                    ],
-                    staticClass: "form-check-input",
-                    attrs: { type: "checkbox", id: "category-" + category.id },
-                    domProps: {
-                      value: category.id,
-                      checked: Array.isArray(_vm.checkedCategories)
-                        ? _vm._i(_vm.checkedCategories, category.id) > -1
-                        : _vm.checkedCategories
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.checkedCategories,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = category.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              (_vm.checkedCategories = $$a.concat([$$v]))
+            [
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "div",
+                  { staticClass: "form-check col-lg-4 col-md-6 col-12" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.checkedCategories,
+                          expression: "checkedCategories"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "category-" + category.id
+                      },
+                      domProps: {
+                        value: category.id,
+                        checked: Array.isArray(_vm.checkedCategories)
+                          ? _vm._i(_vm.checkedCategories, category.id) > -1
+                          : _vm.checkedCategories
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.checkedCategories,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = category.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                (_vm.checkedCategories = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.checkedCategories = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
                           } else {
-                            $$i > -1 &&
-                              (_vm.checkedCategories = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
+                            _vm.checkedCategories = $$c
                           }
-                        } else {
-                          _vm.checkedCategories = $$c
                         }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: "category-" + category.id }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(category.name) +
-                          "\n                    "
-                      )
-                    ]
-                  )
-                ]
-              )
-            })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "category-" + category.id }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(category.name) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _vm.errors.categories
+                ? _c("div", { staticClass: "alert alert-danger mt-1 w-100" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.errors.categories[0]) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
+            ],
+            2
           )
         ]),
         _vm._v(" "),
@@ -50225,11 +50280,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            errors: [],
+            errors: {},
             saved: false,
             comment: {
                 author: null,
@@ -50269,11 +50325,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.reset();
             }).catch(function (_ref2) {
                 var response = _ref2.response;
-                return _this.setErrors(response);
+
+                _this.setErrors(response);
             });
         },
         setErrors: function setErrors(response) {
             this.errors = response.data.errors;
+            console.log(this.errors);
         },
         setSuccessMessage: function setSuccessMessage() {
             this.reset();
@@ -50308,6 +50366,7 @@ var render = function() {
     _c(
       "form",
       {
+        class: { "was-validated": _vm.errors.length > 0 },
         attrs: { method: "post" },
         on: {
           submit: function($event) {
@@ -50333,7 +50392,7 @@ var render = function() {
                 expression: "comment.author"
               }
             ],
-            class: { "is-invalid": _vm.errors.author } + " form-control",
+            class: { "is-invalid": _vm.errors.author, "form-control": true },
             attrs: { type: "text", name: "author", id: "author" },
             domProps: { value: _vm.comment.author },
             on: {
@@ -50369,7 +50428,7 @@ var render = function() {
                 expression: "comment.content"
               }
             ],
-            class: { "is-invalid": _vm.errors.content } + " form-control",
+            class: { "is-invalid": _vm.errors.content, "form-control": true },
             attrs: { name: "content", id: "content" },
             domProps: { value: _vm.comment.content },
             on: {

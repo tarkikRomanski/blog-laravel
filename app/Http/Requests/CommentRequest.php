@@ -30,4 +30,16 @@ class CommentRequest extends FormRequest
             'category_id' => 'required_without:post_id|exists:categories,id'
         ];
     }
+
+    /**
+     * Get validation messages.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'author.regex' => 'The author field should be two words with capital letters',
+        ];
+    }
 }

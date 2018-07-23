@@ -3,14 +3,15 @@
         <div class="alert alert-success" v-if="saved">
             <strong>Success!</strong> Your comment has been added successfully.
         </div>
-        <form method="post" @submit.prevent="onSubmit" >
+
+        <form method="post" @submit.prevent="onSubmit" :class="{'was-validated': errors.length > 0}">
             <div class="form-group">
                 <label class="control-label" for="author">Your name:</label>
                 <input
                         type="text"
                         name="author"
                         id="author"
-                        :class="{'is-invalid': errors.author} + ' form-control'"
+                        :class="{'is-invalid': errors.author, 'form-control': true}"
                         v-model="comment.author"
                 >
                 <div v-if="errors.author" class="invalid-feedback">{{ errors.author[0] }}</div>
@@ -21,7 +22,7 @@
                 <textarea
                         name="content"
                         id="content"
-                        :class="{'is-invalid': errors.content} + ' form-control'"
+                        :class="{'is-invalid': errors.content, 'form-control': true}"
                         v-model="comment.content"
                 ></textarea>
                 <div v-if="errors.content" class="invalid-feedback">{{ errors.content[0] }}</div>
@@ -36,7 +37,7 @@
     export default {
         data() {
             return {
-                errors: [],
+                errors: {},
                 saved: false,
                 comment: {
                     author: null,
@@ -72,11 +73,14 @@
                             this.reset();
                         }
                     )
-                    .catch(({response}) => this.setErrors(response));
+                    .catch(({response}) => {
+                        this.setErrors(response);
+                    });
             },
 
             setErrors(response) {
                 this.errors = response.data.errors;
+                console.log(this.errors);
             },
 
             setSuccessMessage() {

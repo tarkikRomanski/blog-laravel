@@ -27,7 +27,20 @@ class PostRequest extends FormRequest
             'name' => 'required|min:3|max:100',
             'content' => 'required',
             'file' => 'max:2048|file|nullable',
-            'categories' => 'nullable'
+            'categories' => 'required'
+        ];
+    }
+
+    /**
+     * Get validation messages.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'categories.required' => 'Pls select one or more categories',
+            'file.max' => 'File is very big (maximum size 2Mb)',
         ];
     }
 }

@@ -13534,6 +13534,10 @@ body {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.was-validated .form-control:valid.is-invalid {
+  border-color: #dc3545;
+}
+
 .categoryItem {
   margin-bottom: 30px;
 }

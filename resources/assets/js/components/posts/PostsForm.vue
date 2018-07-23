@@ -3,7 +3,7 @@
         <div class="alert alert-success" v-if="saved">
             <strong>Success!</strong> Your post has been saved successfully.
         </div>
-        <form method="post" @submit.prevent="onSubmit">
+        <form method="post" @submit.prevent="onSubmit" :class="{'was-validated': errors.length > 0 }">
             <div class="container-fluid">
                 <div class="row">
                     <div class="form-group col-12">
@@ -12,7 +12,7 @@
                                 type="text"
                                 name="name"
                                 id="name"
-                                :class="{'is-invalid': errors.name} + ' form-control'"
+                                :class="{'is-invalid': errors.name, 'form-control': true}"
                                 v-model="post.name"
                         >
                         <div v-if="errors.name" class="invalid-feedback">{{ errors.name[0] }}</div>
@@ -21,11 +21,21 @@
                     <div class="form-group col-12">
                         <label class="control-label" for="content">Post content:</label>
                         <froala :tag="'textarea'" :config="config" v-model="post.content"></froala>
+                        <div class="alert alert-danger mt-1 w-100" v-if="errors.content">
+                            {{ errors.content[0] }}
+                        </div>
                     </div>
 
                     <div class="form-group col-12">
                         <label class="control-label" for="file">Upload File:</label>
-                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload"/>
+                        <input
+                                type="file"
+                                id="file"
+                                ref="file"
+                                v-on:change="handleFileUpload"
+                                :class="{'is-invalid': errors.file, 'form-control': true}"
+                        >
+                        <div v-if="errors.file" class="invalid-feedback">{{ errors.file[0] }}</div>
                     </div>
                 </div>
 
@@ -36,6 +46,9 @@
                         <label :for="'category-'+category.id" class="form-check-label">
                             {{ category.name }}
                         </label>
+                    </div>
+                    <div class="alert alert-danger mt-1 w-100" v-if="errors.categories">
+                        {{ errors.categories[0] }}
                     </div>
                 </div>
             </div>
