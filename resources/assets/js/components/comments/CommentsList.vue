@@ -5,11 +5,11 @@
             <div class="card">
                 <div class="card-header justify-content-between d-flex">
                     <h5>{{ comment.author }}</h5>
-                    <a href="#" @click="destroy(comment.id)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <span @click="destroy(comment.id)" class="btn btn-danger"><i class="fa fa-trash"></i></span>
                 </div>
 
                 <div class="card-body">
-                    {{ comment.content }}
+                    <froalaView v-model="comment.content"></froalaView>
                 </div>
                 <div class="card-footer">
                     <span class="text-muted">comented: {{ comment.created }}</span>
@@ -41,8 +41,11 @@
             },
 
             removeComments(id) {
-                this.comments = _.remove(this.comments, function (comments) {
-                    return comments.id !== id;
+                this.comments.forEach(comment => {
+                    if (comment.id === id) {
+                        let index = this.comments.indexOf(comment);
+                        this.comments.splice(index, 1);
+                    }
                 });
             }
         }

@@ -50117,8 +50117,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         removeComments: function removeComments(id) {
-            this.comments = _.remove(this.comments, function (comments) {
-                return comments.id !== id;
+            var _this2 = this;
+
+            this.comments.forEach(function (comment) {
+                if (comment.id === id) {
+                    var index = _this2.comments.indexOf(comment);
+                    _this2.comments.splice(index, 1);
+                }
             });
         }
     }
@@ -50148,10 +50153,9 @@ var render = function() {
                 _c("h5", [_vm._v(_vm._s(comment.author))]),
                 _vm._v(" "),
                 _c(
-                  "a",
+                  "span",
                   {
                     staticClass: "btn btn-danger",
-                    attrs: { href: "#" },
                     on: {
                       click: function($event) {
                         _vm.destroy(comment.id)
@@ -50163,13 +50167,22 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(comment.content) +
-                  "\n            "
-              )
-            ]),
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("froalaView", {
+                  model: {
+                    value: comment.content,
+                    callback: function($$v) {
+                      _vm.$set(comment, "content", $$v)
+                    },
+                    expression: "comment.content"
+                  }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "card-footer" }, [
               _c("span", { staticClass: "text-muted" }, [
