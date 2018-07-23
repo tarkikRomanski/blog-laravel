@@ -163,8 +163,8 @@ return [
         /*
          * Custom Service Providers ...
          */
-        App\Classes\ServiceProviders\UploaderServiceProvider::class,
-        App\Classes\ServiceProviders\HelperServiceProvider::class,
+        App\Providers\UploaderServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
     ],
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+
 class CategoryController extends Controller
 {
     /**
@@ -29,6 +31,10 @@ class CategoryController extends Controller
      */
     public function update($categoryId)
     {
+        if(is_null(Category::find($categoryId))) {
+            abort(404);
+        }
+
         return view('categories.update', ['categoryId' => $categoryId]);
     }
 
@@ -39,6 +45,10 @@ class CategoryController extends Controller
      */
     public function get($categoryId)
     {
+        if(is_null(Category::find($categoryId))) {
+            abort(404);
+        }
+
         return view('categories.get', ['categoryId' => $categoryId]);
     }
 }

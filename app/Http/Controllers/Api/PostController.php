@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Category;
-use App\Classes\Facades\Helper;
-use App\Classes\Facades\Uploader;
+use App\Helpers\Facades\Helper;
+use App\Helpers\Facades\Uploader;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Post;
@@ -54,22 +54,14 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $fileName = null;
-        $fileType = null;
+        $newData = $request->only('name', 'content');
         if($request->has('file')) {
             $fileName = Uploader::uploadFile($request->file('file'));
-            $fileType = Uploader::getFileType($fileName);
+            $newData['file_type'] = Uploader::getFileType($fileName);
+            $newData['file'] = $fileName;
         }
-
-        $post = new Post();
-        $post->name = $request->get('name');
-        $post->content = $request->get('content');
-        $post->file = $fileName;
-        $post->file_type = $fileType;
-        $post->save();
-
+        $post = Post::create($newData);
         $categoriesList = Helper::toCategories($request->get('categories'));
-
         if(!empty($categoriesList)) {
             $post->categories()->saveMany($categoriesList);
         }
@@ -95,9 +87,9 @@ class PostController extends Controller
         $post->update($arrayForUpdate);
 
         if($request->has('categories')) {
-            $categoriesList = Helper::toCategories($request->get('categories'));
+            $categoriesList = Helper::toCategories($request->get('categories'), true);
             if (!empty($categoriesList)) {
-                $post->categories()->saveMany($categoriesList);
+                $post->categories()->sync($categoriesList);
             }
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes;
+namespace App\Helpers;
 
 
 use App\Category;
@@ -12,16 +12,22 @@ class Helper
     /**
      * Returns array of categories by string with id's
      * @param null|string $categories
+     * @param boolean $onlyId
      * @param string $delimiter
      * @return array
      */
-    public function toCategories($categories = null, $delimiter = ',')
+    public function toCategories($categories = null, $onlyId = false, $delimiter = ',')
     {
         if (is_null($categories)) {
             return [];
         }
 
         $categoriesIdList = explode($delimiter, $categories);
+
+        if($onlyId) {
+            return $categoriesIdList;
+        }
+
         $categoriesList = [];
         foreach ($categoriesIdList as $categoryId) {
             $category = Category::find((int)$categoryId);

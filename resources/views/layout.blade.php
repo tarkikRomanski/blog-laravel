@@ -17,7 +17,7 @@
             </div>
         </div>
         <ul>
-        @foreach(\App\Classes\Facades\Helper::getBrowsersQuantity() as $browser => $quantity)
+        @foreach(\App\Helpers\Facades\Helper::getBrowsersQuantity() as $browser => $quantity)
             <li>{{ ucfirst($browser) }}: {{ $quantity }}</li>
         @endforeach
         </ul>

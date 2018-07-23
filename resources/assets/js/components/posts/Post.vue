@@ -29,7 +29,7 @@
             <a :href="post.file" target="_blank">Download file</a>
         </div>
         <div class="postItem__categories">
-            <div v-for="category in post.categories" class="postItem__category">
+            <div v-for="category in post.categories" class="postItem__category mb-2">
                 <a :href="category.link">{{ category.name }}</a>
             </div>
         </div>

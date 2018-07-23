@@ -9,7 +9,7 @@ $files = [
 
 $factory->define(App\Post::class, function (Faker $faker) use ($files) {
     $file = $faker->randomElement($files);
-    $file_type = \App\Classes\Facades\Uploader::getFileType($file);
+    $file_type = \App\Helpers\Facades\Uploader::getFileType($file);
     return [
         'name' => $faker->sentence(rand(2, 5)),
         'content' => $faker->text,

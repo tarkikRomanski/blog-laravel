@@ -45,10 +45,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->save();
+        $category = Category::create($request->only(['name', 'description']));
         return response(new CategoryResource($category), Response::HTTP_CREATED);
     }
 

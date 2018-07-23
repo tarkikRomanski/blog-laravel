@@ -49937,7 +49937,7 @@ var render = function() {
         "div",
         { staticClass: "postItem__categories" },
         _vm._l(_vm.post.categories, function(category) {
-          return _c("div", { staticClass: "postItem__category" }, [
+          return _c("div", { staticClass: "postItem__category mb-2" }, [
             _c("a", { attrs: { href: category.link } }, [
               _vm._v(_vm._s(category.name))
             ])
