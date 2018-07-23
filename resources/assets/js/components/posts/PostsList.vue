@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <paginate
+        <paginate v-if="pageCount > 1"
                 :page-count="pageCount"
                 :click-handler="fetch"
                 :prev-text="'Prev'"
