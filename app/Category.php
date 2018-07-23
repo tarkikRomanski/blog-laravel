@@ -31,6 +31,15 @@ class Category extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany('App\Post', 'post_category');
+        return $this->belongsToMany('App\Post', 'post_category')->latest();
+    }
+
+    /**
+     * Relationship with table 'comments'
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment')->latest();
     }
 }

@@ -41,17 +41,24 @@
                 comment: {
                     author: null,
                     content: null,
-                    post_id: null
                 }
             };
         },
 
         props: {
-            subject: Number
+            subject: Number,
+            category: {
+                type: Boolean,
+                default: false
+            }
         },
 
         created() {
-            this.comment.post_id = this.subject;
+            if(this.category) {
+                this.comment.category_id = this.subject;
+            } else {
+                this.comment.post_id = this.subject;
+            }
         },
 
         methods: {

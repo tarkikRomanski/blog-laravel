@@ -23,6 +23,7 @@ class CategoryResource extends JsonResource
             'description' => $this->description,
             'link' => route('categories.get', ['id' => $this->id]),
             'editLink' => route('categories.update', ['id' => $this->id]),
+            'comments' => CommentResource::hide(['post'])::collection($this->comments),
             'postsQuantity' => $this->posts()->count(),
             'created' => $this->created_at->diffForHumans(),
             'updated' => $this->updated_at->diffForHumans(),

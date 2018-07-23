@@ -14,7 +14,7 @@ class Comment extends Model
     /**
      * @var array
      */
-    protected $fillable = ['author', 'content', 'post_id', 'created_at'];
+    protected $fillable = ['author', 'content', 'post_id', 'category_id', 'created_at'];
 
     /**
      * Has updated to set create date automate
@@ -36,5 +36,14 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo('App\Post');
+    }
+
+    /**
+     * Relationship with table 'categories'
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
 }

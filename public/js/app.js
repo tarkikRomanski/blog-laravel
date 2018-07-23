@@ -14484,6 +14484,7 @@ Vue.component('post', __webpack_require__(77));
 
 Vue.component('comments', __webpack_require__(80));
 Vue.component('comments-form', __webpack_require__(83));
+Vue.component('comments-place', __webpack_require__(93));
 
 Vue.component('paginate', __webpack_require__(86));
 
@@ -48994,6 +48995,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49036,21 +49047,41 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("header", [
-        _c("h1", [_vm._v(_vm._s(_vm.category.name))]),
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-8 col-12" },
+      [
+        _c("header", [
+          _c("h1", [_vm._v(_vm._s(_vm.category.name))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.category.description))])
+        ]),
         _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.category.description))])
-      ]),
-      _vm._v(" "),
-      _vm.category.id
-        ? _c("posts", { attrs: { category: _vm.category.id } })
-        : _vm._e()
-    ],
-    1
-  )
+        _vm.category.id
+          ? _c("posts", { attrs: { category: _vm.category.id } })
+          : _vm._e()
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-4 col-12" },
+      [
+        _vm.category.id
+          ? _c("comments-place", {
+              attrs: {
+                comments: _vm.category.comments,
+                subject: _vm.category.id,
+                category: true
+              }
+            })
+          : _vm._e()
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49192,7 +49223,7 @@ var render = function() {
         "div",
         { staticClass: "row" },
         _vm._l(_vm.posts, function(post) {
-          return _c("div", { staticClass: "card col-md-4 col-12 col-sm-6" }, [
+          return _c("div", { staticClass: "card col-lg-4 col-12 col-md-6" }, [
             _c("div", { staticClass: "card-img-top postList__img" }, [
               post.fileType == 1
                 ? _c("img", { attrs: { src: post.file, alt: "Post image" } })
@@ -49775,9 +49806,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49817,10 +49845,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     location.href = _this2.getApiUrl('');
                 });
             }
-        },
-        onAddComment: function onAddComment(comment) {
-            comment.created = comment.created.date;
-            this.post.comments.unshift(comment);
         }
     }
 });
@@ -49923,14 +49947,9 @@ var render = function() {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _vm.post.id
-        ? _c("comments-form", {
-            attrs: { subject: _vm.post.id },
-            on: { "add-comment": _vm.onAddComment }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c("comments", { attrs: { comments: _vm.post.comments } })
+      _c("comments-place", {
+        attrs: { comments: _vm.post.comments, subject: _vm.post.id }
+      })
     ],
     1
   )
@@ -50214,19 +50233,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             saved: false,
             comment: {
                 author: null,
-                content: null,
-                post_id: null
+                content: null
             }
         };
     },
 
 
     props: {
-        subject: Number
+        subject: Number,
+        category: {
+            type: Boolean,
+            default: false
+        }
     },
 
     created: function created() {
-        this.comment.post_id = this.subject;
+        if (this.category) {
+            this.comment.category_id = this.subject;
+        } else {
+            this.comment.post_id = this.subject;
+        }
     },
 
 
@@ -50393,6 +50419,132 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(94)
+/* template */
+var __vue_template__ = __webpack_require__(95)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/comments/CommentsPlace.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6ec5994f", Component.options)
+  } else {
+    hotAPI.reload("data-v-6ec5994f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        comments: {
+            type: Array
+        },
+        subject: Number,
+        category: {
+            type: Boolean,
+            default: false
+        }
+    },
+
+    methods: {
+        onAddComment: function onAddComment(comment) {
+            comment.created = comment.created.date;
+            this.comments.unshift(comment);
+        }
+    }
+});
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "commentPlace" },
+    [
+      _vm.subject
+        ? _c("comments-form", {
+            attrs: { subject: _vm.subject, category: _vm.category },
+            on: { "add-comment": _vm.onAddComment }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c("comments", { attrs: { comments: _vm.comments } })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6ec5994f", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

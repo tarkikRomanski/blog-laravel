@@ -2,7 +2,7 @@
 
     <div class="postList">
         <div class="row">
-            <div class="card col-md-4 col-12 col-sm-6" v-for="post in posts">
+            <div class="card col-lg-4 col-12 col-md-6" v-for="post in posts">
                 <div class="card-img-top postList__img">
                     <img v-if="post.fileType == 1" :src="post.file" alt="Post image">
                 </div>

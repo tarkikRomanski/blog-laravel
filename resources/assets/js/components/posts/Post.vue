@@ -36,13 +36,10 @@
 
         <hr>
 
-        <comments-form
-                v-if="post.id"
+        <comments-place
+                :comments="post.comments"
                 :subject="post.id"
-                v-on:add-comment="onAddComment"
-        ></comments-form>
-
-        <comments :comments="post.comments"></comments>
+        ></comments-place>
     </div>
 </template>
 
@@ -81,11 +78,6 @@
                         });
                 }
             },
-
-            onAddComment(comment) {
-                comment.created = comment.created.date;
-                this.post.comments.unshift(comment);
-            }
         }
     }
 </script>
